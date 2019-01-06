@@ -1,6 +1,5 @@
 # Build and bin directories
 bin/
-build/
 
 # Compiled class file
 *.class
