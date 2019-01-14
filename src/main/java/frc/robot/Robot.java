@@ -12,8 +12,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.commands.ExampleCommand;
-import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.Drive;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -24,7 +23,7 @@ import frc.robot.subsystems.ExampleSubsystem;
  */
 public class Robot extends TimedRobot
 {
-  public static ExampleSubsystem subsystem = new ExampleSubsystem();
+  public static Drive drive;
   public static OI oi;
 
   Command autonomousCommand;
@@ -37,8 +36,10 @@ public class Robot extends TimedRobot
   @Override
   public void robotInit()
   {
+    drive = new Drive();
     oi = new OI();
-    chooser.setDefaultOption("Default Auto", new ExampleCommand());
+
+    //chooser.setDefaultOption("Default Auto", new ExampleCommand());
     // chooser.addOption("My Auto", new MyAutoCommand());
     SmartDashboard.putData("Auto mode", chooser);
   }
@@ -126,12 +127,18 @@ public class Robot extends TimedRobot
     }
   }
 
+
   /**
    * This function is called periodically during operator control.
    */
   @Override
   public void teleopPeriodic()
   {
+    double forward = oi.joystick.getRawAxis(RobotMap.yAxis);
+    double strafe = oi.joystick.getRawAxis(RobotMap.xAxis);
+    double rotate = oi.joystick.getRawAxis(RobotMap.zAxis);
+
+    drive.move(strafe, forward, rotate);
     Scheduler.getInstance().run();
   }
 
