@@ -135,9 +135,9 @@ public class Robot extends TimedRobot
   public void teleopPeriodic()
   {
     // Get values from joystick
-    double forward = oi.joystick.getRawAxis(RobotMap.yAxis);
-    double strafe = oi.joystick.getRawAxis(RobotMap.xAxis);
-    double rotate = oi.joystick.getRawAxis(RobotMap.zAxis);
+    double forward = oi.getAxis(RobotMap.yAxis);
+    double strafe = oi.getAxis(RobotMap.xAxis);
+    double rotate = oi.getAxis(RobotMap.zAxis);
 
     // Drive robot (duh)
     drive.move(strafe, forward, rotate);

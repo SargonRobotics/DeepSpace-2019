@@ -15,6 +15,9 @@ package frc.robot;
  */
 public class RobotMap
 {
+  // Deadzone constant
+  public static final double deadzone = 0.15;
+
   // Motor port constants
   public static final int frontRightMotorPort = 0, frontLeftMotorPort = 1;
   public static final int backLeftMotorPort = 2, backRightMotorPort = 3;

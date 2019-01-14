@@ -21,7 +21,19 @@ public class OI
   {
     joystick = new Joystick(0);
   }
-  
+
+  public double getAxis(int port)
+  {
+    return deadzone(joystick.getRawAxis(port));
+  }
+
+  // Deadzone method for bad controller joysticks
+  private double deadzone(double axis)
+  {
+    // TODO: Test this
+    double amount = (axis < RobotMap.deadzone) ? 0 : axis;
+    return 1/(1 - RobotMap.deadzone) * amount;
+  }
   // TODO: Get rid of all these blasted comments
   //// CREATING BUTTONS
   // One type of button is a joystick button which is any button on a
