@@ -37,7 +37,7 @@ public class Robot extends TimedRobot
   public void robotInit()
   {
     drive = new Drive();
-    oi = new OI();
+    oi = new OI(); // This one goes last or the code will explode ;)
 
     //chooser.setDefaultOption("Default Auto", new ExampleCommand());
     // chooser.addOption("My Auto", new MyAutoCommand());
@@ -134,11 +134,14 @@ public class Robot extends TimedRobot
   @Override
   public void teleopPeriodic()
   {
+    // Get values from joystick
     double forward = oi.joystick.getRawAxis(RobotMap.yAxis);
     double strafe = oi.joystick.getRawAxis(RobotMap.xAxis);
     double rotate = oi.joystick.getRawAxis(RobotMap.zAxis);
 
+    // Drive robot (duh)
     drive.move(strafe, forward, rotate);
+
     Scheduler.getInstance().run();
   }
 

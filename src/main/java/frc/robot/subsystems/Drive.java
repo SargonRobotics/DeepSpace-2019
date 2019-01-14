@@ -19,11 +19,13 @@ import frc.robot.RobotMap;
 
 public class Drive extends Subsystem
 {
+  // TODO: Figure out which motor controlers we're using for the drive train
   Victor frontLeftMotor, frontRightMotor, backLeftMotor, backRightMotor;
   MecanumDrive drive;
 
   public Drive()
   {
+    // Motor controller objects
     frontRightMotor = new Victor(RobotMap.frontRightMotorPort);
     frontLeftMotor = new Victor(RobotMap.frontLeftMotorPort);
     backRightMotor = new Victor(RobotMap.backRightMotorPort);
@@ -32,11 +34,13 @@ public class Drive extends Subsystem
     drive = new MecanumDrive(frontLeftMotor, backLeftMotor, frontRightMotor, backRightMotor);
   }
 
+  // Main drive method
   public void move(double sideVal, double forwardVal, double rotateVal)
   {
     drive.driveCartesian(sideVal, forwardVal, rotateVal);
   }
 
+  // If you need comments for this I'm sorry
   public void stop()
   {
     drive.stopMotor();
