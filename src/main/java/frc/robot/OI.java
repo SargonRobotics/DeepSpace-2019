@@ -30,7 +30,7 @@ public class OI
   // Deadzone method for bad controller joysticks
   private double deadzone(double axis)
   {
-    // TODO: Test this
+    // TODO: Test this code
     double amount = (axis < RobotMap.deadzone) ? 0 : axis;
     return 1/(1 - RobotMap.deadzone) * amount;
   }
