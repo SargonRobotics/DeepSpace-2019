@@ -8,7 +8,8 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
-
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import frc.robot.commands.TimedDrive;
 /**
  * This class is the glue that binds the controls on the physical operator
  * interface to the commands and command groups that allow control of the robot.
@@ -16,10 +17,14 @@ import edu.wpi.first.wpilibj.Joystick;
 public class OI
 {
   public Joystick joystick;
-  
+  public JoystickButton button1;
+
   public OI()
   {
     joystick = new Joystick(0);
+    button1 = new JoystickButton(joystick, RobotMap.joystickButtonPort);
+
+    button1.whenPressed(new TimedDrive());
   }
 
   public double getAxis(int port)
@@ -31,8 +36,16 @@ public class OI
   private double deadzone(double axis)
   {
     // TODO: Test this code
-    double amount = (axis < RobotMap.deadzone) ? 0 : axis;
-    return 1/(1 - RobotMap.deadzone) * amount;
+    double amount = (Math.abs(axis) < RobotMap.deadzone) ? 0 : axis;
+    
+    if(amount == 0)
+    {
+      return 0;
+    }
+    else
+    {
+      return (1/(1 - RobotMap.deadzone) * amount) + (amount > 0 ? -RobotMap.deadzone : RobotMap.deadzone);
+    }
   }
   // TODO: Get rid of all these blasted comments
   //// CREATING BUTTONS

@@ -23,5 +23,6 @@ public class RobotMap
   public static final int backLeftMotorPort = 2, backRightMotorPort = 3;
 
   // Controller port constants
-  public static final int xAxis = 1, yAxis = 2, zAxis = 3;
+  public static final int xAxis = 0, yAxis = 1, zAxisLeft = 2, zAxisRight = 3;
+  public static final int joystickButtonPort = 1;
 }

@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.Drive;
+import frc.robot.commands.TimedDrive;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -25,6 +26,7 @@ public class Robot extends TimedRobot
 {
   public static Drive drive;
   public static OI oi;
+  public static TimedDrive timedDrive;
 
   Command autonomousCommand;
   SendableChooser<Command> chooser = new SendableChooser<>();
@@ -120,7 +122,7 @@ public class Robot extends TimedRobot
     // This makes sure that the autonomous stops running when
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
-    // this line or comment it out.
+    // this line or comment it out.   
     if (autonomousCommand != null)
     {
       autonomousCommand.cancel();
@@ -137,7 +139,7 @@ public class Robot extends TimedRobot
     // Get values from joystick
     double forward = oi.getAxis(RobotMap.yAxis);
     double strafe = oi.getAxis(RobotMap.xAxis);
-    double rotate = oi.getAxis(RobotMap.zAxis);
+    double rotate = oi.getAxis(RobotMap.zAxisRight) - oi.getAxis(RobotMap.zAxisLeft);
 
     // Drive robot (duh)
     drive.move(strafe, forward, rotate);

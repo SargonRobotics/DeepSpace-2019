@@ -28,16 +28,18 @@ public class Drive extends Subsystem
     // Motor controller objects
     frontRightMotor = new Victor(RobotMap.frontRightMotorPort);
     frontLeftMotor = new Victor(RobotMap.frontLeftMotorPort);
+    //frontLeftMotor.setInverted(true);
     backRightMotor = new Victor(RobotMap.backRightMotorPort);
+    //backRightMotor.setInverted(true);
     backLeftMotor = new Victor(RobotMap.backLeftMotorPort);
-
+    backLeftMotor.setInverted(true);
     drive = new MecanumDrive(frontLeftMotor, backLeftMotor, frontRightMotor, backRightMotor);
   }
 
   // Main drive method
   public void move(double sideVal, double forwardVal, double rotateVal)
   {
-    drive.driveCartesian(sideVal, forwardVal, rotateVal);
+    drive.driveCartesian(sideVal, -forwardVal, rotateVal);
   }
 
   // If you need comments for this I'm sorry
