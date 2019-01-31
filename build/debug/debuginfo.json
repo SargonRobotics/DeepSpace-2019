@@ -1,9 +1,0 @@
-[
-  {
-    "artifact": "frcJava",
-    "target": "roborio",
-    "debugfile": "frcJava_roborio.debugconfig",
-    "project": "DeepSpace-2019",
-    "language": "java"
-  }
-]
