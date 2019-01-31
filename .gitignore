@@ -1,5 +1,8 @@
 # Build and bin directories
 bin/
+build/
+gradle/
+.gradle/
 
 # Compiled class file
 *.class
