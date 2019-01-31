@@ -12,6 +12,8 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.subsystems.Drive;
+import frc.robot.subsystems.Vision;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -22,7 +24,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class Robot extends TimedRobot
 {
-  //public static ExampleSubsystem subsystem = new ExampleSubsystem();
+  public static Drive drive;
+  public static Vision vision;
   public static OI oi;
 
   Command autonomousCommand;
@@ -35,7 +38,10 @@ public class Robot extends TimedRobot
   @Override
   public void robotInit()
   {
-    oi = new OI();
+    drive = new Drive();
+    vision = new Vision();
+    oi = new OI(); // This one goes last or the code will explode ;)
+
     //chooser.setDefaultOption("Default Auto", new ExampleCommand());
     // chooser.addOption("My Auto", new MyAutoCommand());
     SmartDashboard.putData("Auto mode", chooser);
@@ -117,12 +123,13 @@ public class Robot extends TimedRobot
     // This makes sure that the autonomous stops running when
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
-    // this line or comment it out.
+    // this line or comment it out.   
     if (autonomousCommand != null)
     {
       autonomousCommand.cancel();
     }
   }
+
 
   /**
    * This function is called periodically during operator control.
@@ -130,6 +137,14 @@ public class Robot extends TimedRobot
   @Override
   public void teleopPeriodic()
   {
+    // Get values from joystick
+    double forward = oi.getAxis(RobotMap.yAxis);
+    double strafe = oi.getAxis(RobotMap.xAxis);
+    double rotate = oi.getAxis(RobotMap.zAxisRight) - oi.getAxis(RobotMap.zAxisLeft);
+
+    // Drive robot (duh)
+    drive.move(strafe, forward, rotate);
+
     Scheduler.getInstance().run();
   }
 
