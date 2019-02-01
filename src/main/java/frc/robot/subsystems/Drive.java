@@ -7,7 +7,7 @@
 
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj.Victor;
+import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
 import frc.robot.RobotMap;
@@ -19,20 +19,17 @@ import frc.robot.RobotMap;
 
 public class Drive extends Subsystem
 {
-  // TODO: Figure out which motor controlers we're using for the drive train
-  Victor frontLeftMotor, frontRightMotor, backLeftMotor, backRightMotor;
+  Spark frontLeftMotor, frontRightMotor, backLeftMotor, backRightMotor;
   MecanumDrive drive;
 
   public Drive()
   {
     // Motor controller objects
-    frontRightMotor = new Victor(RobotMap.frontRightMotorPort);
-    frontLeftMotor = new Victor(RobotMap.frontLeftMotorPort);
-    //frontLeftMotor.setInverted(true);
-    backRightMotor = new Victor(RobotMap.backRightMotorPort);
-    //backRightMotor.setInverted(true);
-    backLeftMotor = new Victor(RobotMap.backLeftMotorPort);
-    backLeftMotor.setInverted(true);
+    frontRightMotor = new Spark(RobotMap.frontRightMotorPort);
+    frontLeftMotor = new Spark(RobotMap.frontLeftMotorPort);
+    backRightMotor = new Spark(RobotMap.backRightMotorPort);
+    backLeftMotor = new Spark(RobotMap.backLeftMotorPort);
+
     drive = new MecanumDrive(frontLeftMotor, backLeftMotor, frontRightMotor, backRightMotor);
   }
 

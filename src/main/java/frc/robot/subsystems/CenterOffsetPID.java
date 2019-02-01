@@ -21,7 +21,10 @@ public class CenterOffsetPID
     private PIDSource centerPIDSource;
     private PIDOutput centerPIDOutput;
 
-    public double kP = 0.0, kI = 0.0, kD = 0.0, kF = 0.0;
+    private double speed = 0.8, distance = 40, maxVoltage = 12;
+
+    // TODO: Tune these
+    public double kP = (speed / distance), kI = 0.0, kD = 0.0, kF = (speed / maxVoltage);
 
     public CenterOffsetPID()
     {

@@ -7,11 +7,14 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.subsystems.CenterOffsetPID;
 import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.Vision;
 
@@ -24,9 +27,13 @@ import frc.robot.subsystems.Vision;
  */
 public class Robot extends TimedRobot
 {
+  // Subsystem object declarations
   public static Drive drive;
   public static Vision vision;
   public static OI oi;
+
+  // PID object declaration
+  CenterOffsetPID offsetPID;
 
   Command autonomousCommand;
   SendableChooser<Command> chooser = new SendableChooser<>();
@@ -38,13 +45,20 @@ public class Robot extends TimedRobot
   @Override
   public void robotInit()
   {
+    // Subsystem object initializations
     drive = new Drive();
     vision = new Vision();
     oi = new OI(); // This one goes last or the code will explode ;)
 
+    // PID object declaration
+    offsetPID = new CenterOffsetPID();
+
     //chooser.setDefaultOption("Default Auto", new ExampleCommand());
     // chooser.addOption("My Auto", new MyAutoCommand());
     SmartDashboard.putData("Auto mode", chooser);
+
+    // The below sets up the live window for test mode, this will only affect the robot in test mode
+    LiveWindow.add(offsetPID.centerPIDController);
   }
 
   /**
@@ -70,6 +84,7 @@ public class Robot extends TimedRobot
   public void disabledInit()
   {
     // Note: you can't move any motors or such while the robot is disabled for saftey purposes
+    vision.turnOffLight();
   }
 
   @Override
@@ -128,6 +143,8 @@ public class Robot extends TimedRobot
     {
       autonomousCommand.cancel();
     }
+
+    vision.turnOnLight();
   }
 
 
@@ -140,7 +157,7 @@ public class Robot extends TimedRobot
     // Get values from joystick
     double forward = oi.getAxis(RobotMap.yAxis);
     double strafe = oi.getAxis(RobotMap.xAxis);
-    double rotate = oi.getAxis(RobotMap.zAxisRight) - oi.getAxis(RobotMap.zAxisLeft);
+    double rotate = oi.getAxis(RobotMap.zAxis);
 
     // Drive robot (duh)
     drive.move(strafe, forward, rotate);
@@ -154,6 +171,6 @@ public class Robot extends TimedRobot
   @Override
   public void testPeriodic()
   {
-    // TODO: Utilize test mode this year
+
   }
 }

@@ -10,12 +10,14 @@ package frc.robot.subsystems;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class Vision extends Subsystem
 {
   private NetworkTable visionTable;
   private NetworkTableEntry distanceEntry, xOffestEntry;
+  Relay lightRelay;
 
   public Vision()
   {
@@ -25,6 +27,8 @@ public class Vision extends Subsystem
     // Gets the entries so we can access their values
     distanceEntry = visionTable.getEntry("distance:");
     xOffestEntry = visionTable.getEntry("xOffset");
+
+    lightRelay = new Relay(0);
   }
 
   public double getDistanceToTape()
@@ -43,6 +47,16 @@ public class Vision extends Subsystem
   {
     // Returns true if the center offset is within a certain pixel error value set by the command
     return (getCenterOffset() > -pixelError && getCenterOffset() < pixelError) ? true : false;
+  }
+
+  public void turnOnLight()
+  {
+    lightRelay.set(Relay.Value.kForward);
+  }
+
+  public void turnOffLight()
+  {
+    lightRelay.set(Relay.Value.kOff);
   }
 
   @Override
