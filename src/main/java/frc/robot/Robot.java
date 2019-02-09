@@ -7,15 +7,14 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.subsystems.CenterOffsetPID;
 import frc.robot.subsystems.Drive;
+import frc.robot.subsystems.DrivePID;
 import frc.robot.subsystems.Vision;
 
 /**
@@ -33,7 +32,7 @@ public class Robot extends TimedRobot
   public static OI oi;
 
   // PID object declaration
-  CenterOffsetPID offsetPID;
+  public static DrivePID drivePID;
 
   Command autonomousCommand;
   SendableChooser<Command> chooser = new SendableChooser<>();
@@ -51,14 +50,15 @@ public class Robot extends TimedRobot
     oi = new OI(); // This one goes last or the code will explode ;)
 
     // PID object declaration
-    offsetPID = new CenterOffsetPID();
+    drivePID = new DrivePID();
 
     //chooser.setDefaultOption("Default Auto", new ExampleCommand());
     // chooser.addOption("My Auto", new MyAutoCommand());
     SmartDashboard.putData("Auto mode", chooser);
 
     // The below sets up the live window for test mode, this will only affect the robot in test mode
-    LiveWindow.add(offsetPID.centerPIDController);
+    LiveWindow.add(drivePID.drivePIDController);
+    LiveWindow.add(drivePID.turnCorrectionPIDController);
   }
 
   /**
@@ -85,6 +85,7 @@ public class Robot extends TimedRobot
   {
     // Note: you can't move any motors or such while the robot is disabled for saftey purposes
     vision.turnOffLight();
+    drive.resetEncoders();
   }
 
   @Override
@@ -162,6 +163,8 @@ public class Robot extends TimedRobot
     // Drive robot (duh)
     drive.move(strafe, forward, rotate);
 
+    double gay = drive.getAverageEncoderValue();
+
     Scheduler.getInstance().run();
   }
 
@@ -171,6 +174,6 @@ public class Robot extends TimedRobot
   @Override
   public void testPeriodic()
   {
-
+    vision.turnOnLight();
   }
 }

@@ -25,4 +25,7 @@ public class RobotMap
   // Controller port constants
   public static final int xAxis = 0, yAxis = 1, zAxis = 4;
   public static final int joystickButtonPort = 1;
+
+  // Encoder DIO Ports
+  public static final int leftEncoderA = 3, leftEncoderB = 4, rightEncoderA = 1, rightEncoderB = 2; 
 }
