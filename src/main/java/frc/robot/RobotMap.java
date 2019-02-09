@@ -27,8 +27,8 @@ public class RobotMap
   // public static int rangefinderPort = 1;
   // public static int rangefinderModule = 1;
 
-  public static final int hatchPort1 = 0;
-  public static final int hatchPort2 = 1;
+  public static final int grabPortExtend = 0, grabPortRetract = 1;
+  public static final int outPortExtend = 2, outPortRetract = 3;
 
   public static final int hatchButton = 3;
 }

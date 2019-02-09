@@ -12,8 +12,6 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.commands.ExampleCommand;
-import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.Hatch;
 
 /**
@@ -26,7 +24,6 @@ import frc.robot.subsystems.Hatch;
 public class Robot extends TimedRobot
 {
   public static Hatch hatch;
-  public static ExampleSubsystem subsystem = new ExampleSubsystem();
   public static OI oi;
 
   Command autonomousCommand;
@@ -39,8 +36,10 @@ public class Robot extends TimedRobot
   @Override
   public void robotInit()
   {
+    hatch = new Hatch();
     oi = new OI();
-    chooser.setDefaultOption("Default Auto", new ExampleCommand());
+
+    //chooser.setDefaultOption("Default Auto", new ExampleCommand());
     // chooser.addOption("My Auto", new MyAutoCommand());
     SmartDashboard.putData("Auto mode", chooser);
   }
