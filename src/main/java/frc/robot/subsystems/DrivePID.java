@@ -94,8 +94,8 @@ public class DrivePID
             @Override
             public void pidWrite(double output)
             {
-                System.out.println(-output);
-                Robot.drive.move(0.0, -output, turnCorrection);
+                System.out.println(-output); //TODO: Remote this print
+                Robot.drive.move(0.0, -output, turnCorrection); //TODO: Test PID with turn correction
             }
         };
 
@@ -114,7 +114,8 @@ public class DrivePID
             @Override
             public double calculateFeedForward()
             {
-                return Robot.drive.getAverageSpeed();
+                // Calculates the feedforward by using the voltages put into the motors
+                return Robot.drive.getAverageSpeed() * this.getF();
             }
         };
 
@@ -123,7 +124,8 @@ public class DrivePID
             @Override
             public double calculateFeedForward()
             {
-                return Robot.drive.getAverageSpeed();
+                // Calculates the feedforward by using the voltages put into the motors
+                return Robot.drive.getAverageSpeed() * this.getF();
             }
         };
     }

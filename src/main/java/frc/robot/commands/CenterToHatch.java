@@ -38,14 +38,7 @@ public class CenterToHatch extends Command
   @Override
   protected void execute()
   {
-    double newOffset = Robot.vision.getCenterOffset();
-
-    if(newOffset != centerOffest)
-    {
-      centerOffest = newOffset;
-    }
-
-    Robot.drivePID.drivePIDController.setSetpoint(centerOffest * Robot.drive.inchesToEncoderTurns);
+    
   }
 
   // Make this return true when this Command no longer needs to run execute()
