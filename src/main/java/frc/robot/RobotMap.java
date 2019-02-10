@@ -18,6 +18,9 @@ public class RobotMap
   // Deadzone constant
   public static final double deadzone = 0.15;
 
+  // Scheduler loop delay constant
+  public static final double delayTime = 0.02;
+
   // Motor port constants
   public static final int frontRightMotorPort = 0, frontLeftMotorPort = 1;
   public static final int backLeftMotorPort = 2, backRightMotorPort = 3;

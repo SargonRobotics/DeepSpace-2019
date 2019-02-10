@@ -16,7 +16,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class Vision extends Subsystem
 {
   private NetworkTable visionTable;
-  private NetworkTableEntry distanceEntry, xOffestEntry;
+  private NetworkTableEntry distanceEntry, xOffestEntry, frameDelayEntry;
   Relay lightRelay;
 
   public Vision()
@@ -27,6 +27,7 @@ public class Vision extends Subsystem
     // Gets the entries so we can access their values
     distanceEntry = visionTable.getEntry("distance:");
     xOffestEntry = visionTable.getEntry("xOffset");
+    frameDelayEntry = visionTable.getEntry("delay");
 
     lightRelay = new Relay(0);
   }
@@ -41,6 +42,12 @@ public class Vision extends Subsystem
   {
     // Gets the xOffset value, with a default value of 0 so if it doesn't get the value it doesn't do anything
     return xOffestEntry.getDouble(0);
+  }
+
+  public double getFrameDelay()
+  {
+    // Gets the amount of time it took to grab and process the frame
+    return frameDelayEntry.getDouble(0);
   }
 
   public boolean isCentered(double pixelError)
