@@ -17,12 +17,12 @@ public class CenterToHatch extends Command
 {
   private double centerOffest = 0;
   private double latencyDelay = 0.01; //TODO: Get this value
-  private ArrayList<Double> errorArray;
+  private ArrayList<Double> posArray;
 
   public CenterToHatch()
   {
     requires(Robot.vision);
-    errorArray = new ArrayList<Double>();
+    posArray = new ArrayList<Double>();
   }
 
   // Called just before this Command runs the first time
@@ -45,24 +45,24 @@ public class CenterToHatch extends Command
   protected void execute()
   {
     // This bit is a little more complex than we had before, but it's doing the same thing
-    // When we capture a new error on a frame, we set a new setpoint
+    // When we capture a new position on a frame, we set a new setpoint
     // But here, we account for the time it took to process our frame, so that way we can be more precice in our control
 
-    // If the captured frame has a different center error than previously captured, change the set point
+    // If the captured frame has a different center position than previously captured, change the set point
     if(Robot.drivePID.drivePIDController.getSetpoint() != Robot.vision.getCenterOffset())
     {
       // Gets the index based off the delay of processing the frame
       double totalDelay = Robot.vision.getFrameDelay() + latencyDelay;
 
       // Gets the index by dividing the delay by the scheduler time and adding previously known value
-      int posIndex = errorArray.size() - (int) Math.floor(totalDelay / RobotMap.delayTime);
+      int posIndex = (int) Math.floor(totalDelay / RobotMap.delayTime);
 
-      // Sets new setpoint for PID controller using the known error at the time we captured the frame
-      Robot.drivePID.drivePIDController.setSetpoint(errorArray.get(posIndex));
+      // Sets new setpoint for PID controller using the known position at the time we captured the frame
+      Robot.drivePID.drivePIDController.setSetpoint(posArray.get(posIndex) + Robot.drivePID.drivePIDController.getError());
     }
 
-    // Adds our current error to the array
-    errorArray.add(Robot.drivePID.drivePIDController.getError());
+    // Adds our current position to the array
+    posArray.add(Robot.drive.getAverageEncoderValue());
   }
 
   // Make this return true when this Command no longer needs to run execute()
