@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.subsystems.Hatch;
 import frc.robot.subsystems.Cargo;
 import frc.robot.subsystems.Drive;
 
@@ -24,6 +25,7 @@ import frc.robot.subsystems.Drive;
  */
 public class Robot extends TimedRobot
 {
+  public static Hatch hatch;
   public static Cargo cargo;
   public static Drive drive;
   public static OI oi;
@@ -38,10 +40,11 @@ public class Robot extends TimedRobot
   @Override
   public void robotInit()
   {
+    hatch = new Hatch();
     cargo = new Cargo();
     drive = new Drive();
     oi = new OI(); // This one goes last or the code will explode ;)
-
+    
     //chooser.setDefaultOption("Default Auto", new ExampleCommand());
     // chooser.addOption("My Auto", new MyAutoCommand());
     SmartDashboard.putData("Auto mode", chooser);

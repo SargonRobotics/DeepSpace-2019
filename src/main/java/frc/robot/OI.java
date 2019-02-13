@@ -9,6 +9,8 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import frc.robot.commands.ExtendHatchCover;
+import frc.robot.commands.GrabHatchCover;
 import frc.robot.commands.RunCargo;
 
 /**
@@ -18,14 +20,18 @@ import frc.robot.commands.RunCargo;
 public class OI
 {
   Joystick joystick;
-  JoystickButton cargoButton;
+  JoystickButton cargoButton, grabButton, extendButton;
 
   public OI()
   {
     //configured new button, added button to activate cargo motors
     joystick = new Joystick(0);
+    grabButton = new JoystickButton(joystick, RobotMap.grabButton);
+    extendButton = new JoystickButton(joystick, RobotMap.extendButton);
     cargoButton = new JoystickButton(joystick, RobotMap.cargoButton);
-
+    
+    grabButton.whenPressed(new GrabHatchCover());
+    extendButton.whenPressed(new ExtendHatchCover());
     cargoButton.whileHeld(new RunCargo());
   }
 
