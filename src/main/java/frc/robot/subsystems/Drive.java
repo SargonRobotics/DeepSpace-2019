@@ -29,9 +29,8 @@ public class Drive extends Subsystem
     frontLeftMotor = new Spark(RobotMap.frontLeftMotorPort);
     backRightMotor = new Spark(RobotMap.backRightMotorPort);
     backLeftMotor = new Spark(RobotMap.backLeftMotorPort);
+    
     drive = new MecanumDrive(frontLeftMotor, backLeftMotor, frontRightMotor, backRightMotor);
-
-    backLeftMotor.setInverted(true);
   }
 
   // Main drive method
@@ -45,7 +44,6 @@ public class Drive extends Subsystem
   {
     drive.stopMotor();
   }
-
 
   @Override
   public void initDefaultCommand()
