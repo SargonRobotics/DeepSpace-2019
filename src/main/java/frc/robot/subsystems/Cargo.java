@@ -30,8 +30,9 @@ public class Cargo extends Subsystem
     outakeMotor = new Victor(RobotMap.outtakeMotorPort);
   }
 
-  public void setCargoMotors()
+  public void startCargoMotors()
   {
+    //Motors spin at diffrent speed so end product is the same.
     intakeMotor.set(0.8);
     outakeMotor.set(1);
   }

@@ -31,7 +31,7 @@ public class RunCargo extends Command
   @Override
   protected void execute() 
   {
-    Robot.cargo.setCargoMotors();
+    Robot.cargo.startCargoMotors();
     currentLimitSwitchValue = Robot.cargo.getLimitSwitch();
   }
 
