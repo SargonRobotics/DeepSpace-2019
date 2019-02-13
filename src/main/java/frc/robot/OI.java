@@ -28,4 +28,31 @@ public class OI
 
     cargoButton.whileHeld(new RunCargo());
   }
+
+  public double getAxis(int port)
+  {
+    return deadzone(joystick.getRawAxis(port));
+  }
+
+  // Deadzone method for bad controller joysticks
+  private double deadzone(double axis)
+  {
+    double amount = (Math.abs(axis) < RobotMap.deadzone) ? 0 : axis;
+    
+    // If it is outside of the deadzone but a negative value, it returns the function with a changed slope
+    if(axis < -RobotMap.deadzone && axis < 0)
+    {
+      return (1/(1 - RobotMap.deadzone) * amount) - RobotMap.deadzone;
+    }
+    // If it is outside of the deadzone but a positive value, it returns the funtion with a changed slope
+    else if(axis > RobotMap.deadzone && axis > 0)
+    {
+      return (1/(1 - RobotMap.deadzone) * amount) + RobotMap.deadzone;
+    }
+    // If it is neither, than return 0
+    else
+    {
+      return 0;
+    }
+  }
 }
