@@ -19,22 +19,27 @@ public class Hatch extends Subsystem
   // here. Call these from Commands.
   Solenoid grabSolenoid, extendSolenoid;
   
+  // These store the states for the pistons
   private boolean grab = false;
   private boolean extend = false;
 
   public Hatch()
   { 
+    // Initialize solenoid object
     grabSolenoid = new Solenoid(RobotMap.grabPort);
+    extendSolenoid = new Solenoid(RobotMap.extendPort);
   }
 
   public void toggleGrabber()
   {
+    // Changes state of piston and sets it to the new value
     grab = !grab;
     grabSolenoid.set(grab);
   }
 
   public void toggleExtender()
   {
+    // Changes state of piston and sets it to the new value
     grab = !grab;
     extendSolenoid.set(extend);
   }

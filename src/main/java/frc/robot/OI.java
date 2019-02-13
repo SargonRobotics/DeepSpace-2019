@@ -9,6 +9,7 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import frc.robot.commands.ExtendHatchCover;
 import frc.robot.commands.GrabHatchCover;
 
 /**
@@ -27,6 +28,6 @@ public class OI
     extendButton = new JoystickButton(joystick, RobotMap.extendButton);
 
     grabButton.whenPressed(new GrabHatchCover());
-    extendButton.whenPressed(new GrabHatchCover());
+    extendButton.whenPressed(new ExtendHatchCover());
   }
 }

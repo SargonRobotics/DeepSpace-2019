@@ -53,6 +53,6 @@ public class GrabHatchCover extends Command
   @Override
   protected void interrupted() 
   {
-    //no interruptions
+   
   }
 }
