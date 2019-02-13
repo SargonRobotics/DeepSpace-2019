@@ -8,6 +8,8 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import frc.robot.commands.RunCargo;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -15,11 +17,16 @@ import edu.wpi.first.wpilibj.Joystick;
  */
 public class OI
 {
-  public Joystick joystick;
+  Joystick joystick;
+  JoystickButton cargoButton;
 
   public OI()
   {
+    //configured new button, added button to activate cargo motors
     joystick = new Joystick(0);
+    cargoButton = new JoystickButton(joystick, RobotMap.cargoButton);
+
+    cargoButton.whileHeld(new RunCargo());
   }
 
   public double getAxis(int port)
@@ -47,7 +54,5 @@ public class OI
     {
       return 0;
     }
-
-
   }
 }

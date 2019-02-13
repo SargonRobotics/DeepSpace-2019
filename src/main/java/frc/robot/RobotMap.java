@@ -17,6 +17,16 @@ public class RobotMap
 {
   // Deadzone constant
   public static final double deadzone = 0.15;
+  
+  // Motor ports
+   public static final int intakeMotorPort = 4;
+   public static final int outtakeMotorPort = 5;
+
+   // Button ports
+   public static final int cargoButton = 1;
+   
+   // Limit switch ports
+   public static final int DigitalInput = 0;
 
   // Motor port constants
   public static final int frontRightMotorPort = 0, frontLeftMotorPort = 1;
