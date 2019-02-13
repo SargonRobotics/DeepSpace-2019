@@ -7,7 +7,7 @@
 
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
 /**
@@ -17,32 +17,26 @@ public class Hatch extends Subsystem
 {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
-  DoubleSolenoid grabSolenoid, extendSolenoid;
+  Solenoid grabSolenoid, extendSolenoid;
+  
+  private boolean grab = false;
+  private boolean extend = false;
 
   public Hatch()
   { 
-    grabSolenoid = new DoubleSolenoid(RobotMap.grabPortExtend, RobotMap.grabPortRetract);
-    extendSolenoid = new DoubleSolenoid(RobotMap.outPortExtend, RobotMap.outPortRetract);
+    grabSolenoid = new Solenoid(RobotMap.grabPort);
   }
 
-  public void grabHatchCover()
+  public void toggleGrabber()
   {
-    grabSolenoid.set(DoubleSolenoid.Value.kForward);
+    grab = !grab;
+    grabSolenoid.set(grab);
   }
 
-  public void releaseHatchCover()
+  public void toggleExtender()
   {
-    grabSolenoid.set(DoubleSolenoid.Value.kReverse);
-  }
-
-  public void extendHatchCover()
-  {
-    extendSolenoid.set(DoubleSolenoid.Value.kForward);
-  }
-
-  public void retractHatchCover()
-  {
-    extendSolenoid.set(DoubleSolenoid.Value.kReverse);
+    grab = !grab;
+    extendSolenoid.set(extend);
   }
 
   @Override

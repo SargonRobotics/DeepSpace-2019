@@ -9,7 +9,7 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import frc.robot.commands.ToggleHatchCover;
+import frc.robot.commands.GrabHatchCover;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -18,13 +18,15 @@ import frc.robot.commands.ToggleHatchCover;
 public class OI
 {
   Joystick joystick;
-  JoystickButton hatchButton;
+  JoystickButton grabButton, extendButton;
 
   public OI()
   {
     joystick = new Joystick(0);
-    hatchButton = new JoystickButton(joystick, RobotMap.hatchButton);
+    grabButton = new JoystickButton(joystick, RobotMap.grabButton);
+    extendButton = new JoystickButton(joystick, RobotMap.extendButton);
 
-    hatchButton.toggleWhenPressed(new ToggleHatchCover());
+    grabButton.whenPressed(new GrabHatchCover());
+    extendButton.whenPressed(new GrabHatchCover());
   }
 }

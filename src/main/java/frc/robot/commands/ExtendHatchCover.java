@@ -22,7 +22,7 @@ public class ExtendHatchCover extends Command
   @Override
   protected void initialize() 
   {
-    Robot.hatch.extendHatchCover();
+    Robot.hatch.toggleExtender();
   }
 
   // Called repeatedly when this Command is scheduled to run
@@ -36,14 +36,14 @@ public class ExtendHatchCover extends Command
   @Override
   protected boolean isFinished()
   {
-    return false;
+    return true;
   }
 
   // Called once after isFinished returns true
   @Override
   protected void end()
   {
-    Robot.hatch.retractHatchCover();
+    
   }
 
   // Called when another command which requires one or more of the same
