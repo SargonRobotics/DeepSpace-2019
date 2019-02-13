@@ -13,7 +13,7 @@ import frc.robot.Robot;
 
 public class RunCargo extends Command
 {
-  boolean initiallimitSwitchValue, currentLimitSwitchValue;
+  boolean initialLimitSwitchValue, currentLimitSwitchValue;
   
   public RunCargo() 
   {
@@ -24,15 +24,14 @@ public class RunCargo extends Command
   @Override
   protected void initialize() 
   {
-    initiallimitSwitchValue = Robot.cargo.getLimitSwitch();
+    initialLimitSwitchValue = Robot.cargo.getLimitSwitch();
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() 
   {
-    // TODO: Find good value to set the motors at
-    Robot.cargo.setCargoMotors(0.75);
+    Robot.cargo.setCargoMotors();
     currentLimitSwitchValue = Robot.cargo.getLimitSwitch();
   }
 
@@ -40,14 +39,14 @@ public class RunCargo extends Command
   @Override
   protected boolean isFinished() 
   {
-    return (!initiallimitSwitchValue && currentLimitSwitchValue) ? true : false;
+    return (!initialLimitSwitchValue && currentLimitSwitchValue) ? true : false;
   }
 
   // Called once after isFinished returns true
   @Override
   protected void end() 
   {
-    Robot.cargo.setCargoMotors(0.0);
+    Robot.cargo.stopCargoMotors();
   }
 
   // Called when another command which requires one or more of the same

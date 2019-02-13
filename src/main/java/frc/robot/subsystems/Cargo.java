@@ -30,11 +30,16 @@ public class Cargo extends Subsystem
     outakeMotor = new Victor(RobotMap.outtakeMotorPort);
   }
 
-  public void setCargoMotors(double motorVal)
+  public void setCargoMotors()
   {
-    // TODO: See which motor will spin slower
-    intakeMotor.set(motorVal * 0.8);
-    outakeMotor.set(motorVal);
+    intakeMotor.set(0.8);
+    outakeMotor.set(1);
+  }
+
+  public void stopCargoMotors()
+  {
+    intakeMotor.stopMotor();
+    outakeMotor.stopMotor();
   }
 
   public boolean getLimitSwitch()
