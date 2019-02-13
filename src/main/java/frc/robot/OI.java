@@ -7,38 +7,47 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.Joystick;
+
 /**
  * This class is the glue that binds the controls on the physical operator
  * interface to the commands and command groups that allow control of the robot.
  */
 public class OI
 {
-  // TODO: Get rid of all these blasted comments
-  //// CREATING BUTTONS
-  // One type of button is a joystick button which is any button on a
-  //// joystick.
-  // You create one by telling it which joystick it's on and which button
-  // number it is.
-  // Joystick stick = new Joystick(port);
-  // Button button = new JoystickButton(stick, buttonNumber);
+  public Joystick joystick;
 
-  // There are a few additional built in buttons you can use. Additionally,
-  // by subclassing Button you can create custom triggers and bind those to
-  // commands the same as any other Button.
+  public OI()
+  {
+    joystick = new Joystick(0);
+  }
 
-  //// TRIGGERING COMMANDS WITH BUTTONS
-  // Once you have a button, it's trivial to bind it to a button in one of
-  // three ways:
+  public double getAxis(int port)
+  {
+    return deadzone(joystick.getRawAxis(port));
+  }
 
-  // Start the command when the button is pressed and let it run the command
-  // until it is finished as determined by it's isFinished method.
-  // button.whenPressed(new ExampleCommand());
+  // Deadzone method for bad controller joysticks
+  private double deadzone(double axis)
+  {
+    double amount = (Math.abs(axis) < RobotMap.deadzone) ? 0 : axis;
+    
+    // If it is outside of the deadzone but a negative value, it returns the function with a changed slope
+    if(axis < -RobotMap.deadzone && axis < 0)
+    {
+      return (1/(1 - RobotMap.deadzone) * amount) - RobotMap.deadzone;
+    }
+    // If it is outside of the deadzone but a positive value, it returns the funtion with a changed slope
+    else if(axis > RobotMap.deadzone && axis > 0)
+    {
+      return (1/(1 - RobotMap.deadzone) * amount) + RobotMap.deadzone;
+    }
+    // If it is neither, than return 0
+    else
+    {
+      return 0;
+    }
 
-  // Run the command while the button is being held down and interrupt it once
-  // the button is released.
-  // button.whileHeld(new ExampleCommand());
 
-  // Start the command when the button is released and let it run the command
-  // until it is finished as determined by it's isFinished method.
-  // button.whenReleased(new ExampleCommand());
+  }
 }
