@@ -13,7 +13,6 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.Drive;
-import frc.robot.commands.TimedDrive;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -26,7 +25,6 @@ public class Robot extends TimedRobot
 {
   public static Drive drive;
   public static OI oi;
-  public static TimedDrive timedDrive;
 
   Command autonomousCommand;
   SendableChooser<Command> chooser = new SendableChooser<>();
@@ -139,10 +137,10 @@ public class Robot extends TimedRobot
     // Get values from joystick
     double forward = oi.getAxis(RobotMap.yAxis);
     double strafe = oi.getAxis(RobotMap.xAxis);
-    double rotate = oi.getAxis(RobotMap.zAxisRight) - oi.getAxis(RobotMap.zAxisLeft);
+    double rotate = oi.getAxis(RobotMap.zAxis);
 
     // Drive robot (duh)
-    drive.move(strafe, forward, rotate);
+    drive.drive(strafe, forward, rotate);
 
     Scheduler.getInstance().run();
   }
