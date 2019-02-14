@@ -146,7 +146,7 @@ public class Robot extends TimedRobot
     double rotate = oi.getAxis(RobotMap.zAxis);
 
     // Drive robot (duh)
-    drive.drive(strafe, forward, rotate);
+    drive.driveRobot(strafe, forward, rotate);
 
     Scheduler.getInstance().run();
   }

@@ -55,6 +55,5 @@ public class RunCargo extends Command
   protected void interrupted() 
   {
     end();
-    DriverStation.reportError("Command CargoStop has been interrupted", true);
   }
 }

@@ -22,7 +22,7 @@ public class RobotMap
    public static final int cargoButton = 1, grabButton = 3, extendButton = 4;
    
    // Limit switch ports
-   public static final int DigitalInput = 0;
+   public static final int cargoLimit = 0;
   
   // Solenoid ports
   public static final int grabPort = 0, extendPort = 1;

@@ -39,8 +39,9 @@ public class Hatch extends Subsystem
 
   public void toggleExtender()
   {
+    // TODO: Make it so when we retract it the grabber is releasing the hatch
     // Changes state of piston and sets it to the new value
-    grab = !grab;
+    extend = !extend;
     extendSolenoid.set(extend);
   }
 
