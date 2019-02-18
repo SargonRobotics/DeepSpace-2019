@@ -41,9 +41,6 @@ public class Drive extends Subsystem
     frontLeftMotor = new Spark(RobotMap.frontLeftMotorPort);
     backRightMotor = new Spark(RobotMap.backRightMotorPort);
     backLeftMotor = new Spark(RobotMap.backLeftMotorPort);
-
-    frontRightMotor.setInverted(true);
-    frontLeftMotor.setInverted(true);
     
     drive = new MecanumDrive(frontLeftMotor, backLeftMotor, frontRightMotor, backRightMotor);
   }
@@ -51,8 +48,8 @@ public class Drive extends Subsystem
   // Main drive method
   public void driveRobot(double sideVal, double forwardVal, double rotateVal)
   {
-    // This is broken, the sideVal makes it turn, and rotateVal makes it strake
-    drive.driveCartesian(-rotateVal, forwardVal, -sideVal);
+    // Build messed up the motor ports
+    drive.driveCartesian(-sideVal, forwardVal, rotateVal);
   }
 
   // If you need comments for this I'm sorry
