@@ -95,7 +95,7 @@ public class DrivePID
             public void pidWrite(double output)
             {
                 System.out.println(-output); //TODO: Remote this print
-                Robot.drive.move(0.0, -output, turnCorrection); //TODO: Test PID with turn correction
+                Robot.drive.driveRobot(0.0, -output, turnCorrection); //TODO: Test PID with turn correction
             }
         };
 

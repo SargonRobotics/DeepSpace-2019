@@ -20,10 +20,19 @@ public class RobotMap
 
   // Scheduler loop delay constant
   public static final double delayTime = 0.02;
+   // Button ports
+   public static final int cargoButton = 1, grabButton = 3, extendButton = 4;
+   
+   // Limit switch ports
+   public static final int cargoLimit = 0;
+  
+  // Solenoid ports
+  public static final int grabPort = 0, extendPort = 1;
 
   // Motor port constants
   public static final int frontRightMotorPort = 0, frontLeftMotorPort = 1;
   public static final int backLeftMotorPort = 2, backRightMotorPort = 3;
+  public static final int intakeMotorPort = 4, outtakeMotorPort = 5;
 
   // Controller port constants
   public static final int xAxis = 0, yAxis = 1, zAxis = 4;

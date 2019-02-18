@@ -13,8 +13,10 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.subsystems.Cargo;
 import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.DrivePID;
+import frc.robot.subsystems.Hatch;
 import frc.robot.subsystems.Vision;
 
 /**
@@ -26,7 +28,8 @@ import frc.robot.subsystems.Vision;
  */
 public class Robot extends TimedRobot
 {
-  // Subsystem object declarations
+  public static Hatch hatch;
+  public static Cargo cargo;
   public static Drive drive;
   public static Vision vision;
   public static OI oi;
@@ -44,7 +47,8 @@ public class Robot extends TimedRobot
   @Override
   public void robotInit()
   {
-    // Subsystem object initializations
+    hatch = new Hatch();
+    cargo = new Cargo();
     drive = new Drive();
     vision = new Vision();
     oi = new OI(); // This one goes last or the code will explode ;)
@@ -161,7 +165,7 @@ public class Robot extends TimedRobot
     double rotate = oi.getAxis(RobotMap.zAxis);
 
     // Drive robot (duh)
-    drive.move(strafe, forward, rotate);
+    drive.driveRobot(strafe, forward, rotate);
 
     double gay = drive.getAverageEncoderValue();
 

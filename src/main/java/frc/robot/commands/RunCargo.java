@@ -10,42 +10,42 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
-//TODO: Change this to a drive straight command
-
-public class TimedDrive extends Command
+public class RunCargo extends Command
 {
-  public TimedDrive() 
+  boolean initialLimitSwitchValue, currentLimitSwitchValue;
+  
+  public RunCargo() 
   {
-    requires(Robot.drive);
-    setTimeout(5);
+    requires(Robot.cargo);
   }
 
   // Called just before this Command runs the first time
   @Override
-  protected void initialize()
+  protected void initialize() 
   {
-
+    initialLimitSwitchValue = Robot.cargo.getLimitSwitch();
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() 
   {
-    Robot.drive.move(0, -0.5, 0);
+    Robot.cargo.startCargoMotors();
+    currentLimitSwitchValue = Robot.cargo.getLimitSwitch();
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() 
   {
-    return isTimedOut();
+    return (!initialLimitSwitchValue && currentLimitSwitchValue) ? true : false;
   }
 
   // Called once after isFinished returns true
   @Override
   protected void end() 
   {
-    Robot.drive.stop();
+    Robot.cargo.stopCargoMotors();
   }
 
   // Called when another command which requires one or more of the same

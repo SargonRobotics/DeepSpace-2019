@@ -42,13 +42,17 @@ public class Drive extends Subsystem
     backRightMotor = new Spark(RobotMap.backRightMotorPort);
     backLeftMotor = new Spark(RobotMap.backLeftMotorPort);
 
+    frontRightMotor.setInverted(true);
+    frontLeftMotor.setInverted(true);
+    
     drive = new MecanumDrive(frontLeftMotor, backLeftMotor, frontRightMotor, backRightMotor);
   }
 
   // Main drive method
-  public void move(double sideVal, double forwardVal, double rotateVal)
+  public void driveRobot(double sideVal, double forwardVal, double rotateVal)
   {
-    drive.driveCartesian(-sideVal, -forwardVal, rotateVal);
+    // This is broken, the sideVal makes it turn, and rotateVal makes it strake
+    drive.driveCartesian(-rotateVal, forwardVal, -sideVal);
   }
 
   // If you need comments for this I'm sorry
@@ -88,7 +92,6 @@ public class Drive extends Subsystem
   @Override
   public void initDefaultCommand()
   {
-    // Set the default command for a subsystem here.
-    // setDefaultCommand(new MySpecialCommand());
+    
   }
 }
