@@ -30,7 +30,7 @@ public class RobotMap
   // Motor port constants
   public static final int frontRightMotorPort = 0, frontLeftMotorPort = 1;
   public static final int backLeftMotorPort = 2, backRightMotorPort = 3;
-  public static final int intakeMotorPort = 4, outtakeMotorPort = 5;
+  public static final int intakeMotorPort = 4;
 
   // Controller port constants
   public static final int xAxis = 0, yAxis = 1, zAxis = 4;

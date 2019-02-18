@@ -33,8 +33,11 @@ public class Hatch extends Subsystem
   public void toggleGrabber()
   {
     // Changes state of piston and sets it to the new value
-    grab = !grab;
-    grabSolenoid.set(grab);
+    if(extend)
+    {
+      grab = !grab;
+      grabSolenoid.set(grab);
+    }
   }
 
   public void toggleExtender()
@@ -42,6 +45,13 @@ public class Hatch extends Subsystem
     // TODO: Make it so when we retract it the grabber is releasing the hatch
     // Changes state of piston and sets it to the new value
     extend = !extend;
+
+    if(!extend && grab)
+    {
+      grab = false;
+      grabSolenoid.set(grab);
+    }
+
     extendSolenoid.set(extend);
   }
 
