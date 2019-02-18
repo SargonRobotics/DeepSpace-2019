@@ -36,7 +36,7 @@ public class Drive extends Subsystem
   // Main drive method
   public void driveRobot(double sideVal, double forwardVal, double rotateVal)
   {
-    // This is broken, the sideVal makes it turn, and rotateVal makes it strake
+    // Build messed up the motor ports
     drive.driveCartesian(-sideVal, forwardVal, rotateVal);
   }
 
