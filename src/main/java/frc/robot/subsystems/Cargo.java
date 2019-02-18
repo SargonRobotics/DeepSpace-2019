@@ -19,7 +19,7 @@ public class Cargo extends Subsystem
 {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
-  Victor intakeMotor, outakeMotor;
+  Victor intakeMotor;
   
   // Private so we don't accidently fuck with it
   //private DigitalInput cargoLimitSwitch;
@@ -27,24 +27,18 @@ public class Cargo extends Subsystem
   public Cargo()
   {
     intakeMotor = new Victor(RobotMap.intakeMotorPort);
-    outakeMotor = new Victor(RobotMap.outtakeMotorPort);
 
     //cargoLimitSwitch = new DigitalInput(RobotMap.cargoLimit);
   }
 
   public void startCargoMotors()
   {
-    // TODO: Make them actually spin at the same speed
-    // Build may have to fix that so we won't have to
-    // Motors spin at diffrent speed so end product is the same.
     intakeMotor.set(-1);
-    outakeMotor.set(1);
   }
 
   public void stopCargoMotors()
   {
     intakeMotor.stopMotor();
-    outakeMotor.stopMotor();
   }
 
   public boolean getLimitSwitch()
