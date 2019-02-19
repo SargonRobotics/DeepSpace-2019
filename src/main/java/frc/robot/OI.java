@@ -9,6 +9,7 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import frc.robot.commands.CenterToHatch;
 import frc.robot.commands.ExtendHatchCover;
 import frc.robot.commands.GrabHatchCover;
 import frc.robot.commands.RunCargo;
@@ -19,8 +20,9 @@ import frc.robot.commands.RunCargo;
  */
 public class OI
 {
+  // TODO: Make test an actual button for use
   Joystick joystick;
-  JoystickButton cargoButton, grabButton, extendButton;
+  JoystickButton cargoButton, grabButton, extendButton, test;
 
   public OI()
   {
@@ -29,10 +31,12 @@ public class OI
     grabButton = new JoystickButton(joystick, RobotMap.grabButton);
     extendButton = new JoystickButton(joystick, RobotMap.extendButton);
     cargoButton = new JoystickButton(joystick, RobotMap.cargoButton);
+    test = new JoystickButton(joystick, 5);
     
     grabButton.whenPressed(new GrabHatchCover());
     extendButton.whenPressed(new ExtendHatchCover());
     cargoButton.whileHeld(new RunCargo());
+    test.whenPressed(new CenterToHatch());
   }
 
   public double getAxis(int port)

@@ -24,7 +24,7 @@ public class RobotMap
    public static final int cargoButton = 1, grabButton = 3, extendButton = 4;
    
    // Limit switch ports
-   public static final int cargoLimit = 0;
+   public static final int cargoLimit = 4;
   
   // Solenoid ports
   public static final int grabPort = 0, extendPort = 1;
@@ -39,5 +39,5 @@ public class RobotMap
   public static final int joystickButtonPort = 1;
 
   // Encoder DIO Ports
-  public static final int leftEncoderA = 3, leftEncoderB = 4, rightEncoderA = 1, rightEncoderB = 2; 
+  public static final int leftEncoderA = 2, leftEncoderB = 3, rightEncoderA = 0, rightEncoderB = 1; 
 }

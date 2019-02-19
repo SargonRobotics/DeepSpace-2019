@@ -62,7 +62,7 @@ public class Robot extends TimedRobot
 
     // The below sets up the live window for test mode, this will only affect the robot in test mode
     LiveWindow.add(drivePID.drivePIDController);
-    LiveWindow.add(drivePID.turnCorrectionPIDController);
+    //LiveWindow.add(drivePID.turnCorrectionPIDController);
   }
 
   /**
@@ -167,7 +167,7 @@ public class Robot extends TimedRobot
     // Drive robot (duh)
     drive.driveRobot(strafe, forward, rotate);
 
-    double gay = drive.getAverageEncoderValue();
+    SmartDashboard.putNumber("Encoder", drive.getAverageEncoderValue());
 
     Scheduler.getInstance().run();
   }
@@ -178,6 +178,6 @@ public class Robot extends TimedRobot
   @Override
   public void testPeriodic()
   {
-    vision.turnOnLight();
+    System.out.println(Robot.drivePID.drivePIDController.getError());
   }
 }

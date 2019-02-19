@@ -25,11 +25,10 @@ public class DrivePID
     private PIDSource turnCorrectionSource;
     private PIDOutput turnCorrectionOutput;
 
-    private double maxVoltage = 12;
     private double turnCorrection = 0;
 
     // TODO: Tune these
-    public double kPDrive = 0.02, kIDrive = 0.001, kDDrive = 0.018, kF = (1 / maxVoltage);
+    public double kPDrive = 0.002, kIDrive = 0.0, kDDrive = 0.0;
     public double kPTurn = 0, kITurn = 0, kDTurn = 0;
 
     public DrivePID()
@@ -94,8 +93,8 @@ public class DrivePID
             @Override
             public void pidWrite(double output)
             {
-                System.out.println(-output); //TODO: Remote this print
-                Robot.drive.driveRobot(0.0, -output, turnCorrection); //TODO: Test PID with turn correction
+                //System.out.println(); //TODO: Remote this print
+                Robot.drive.driveRobot(0.0, output, 0.0); //TODO: Test PID with turn correction
             }
         };
 
@@ -108,25 +107,8 @@ public class DrivePID
             }
         };
 
-        // Sets up the PID controller
-        drivePIDController = new PIDController(kPDrive, kIDrive, kDDrive, kF, driveSource, driveOutput)
-        {
-            @Override
-            public double calculateFeedForward()
-            {
-                // Calculates the feedforward by using the voltages put into the motors
-                return Robot.drive.getAverageSpeed() * this.getF();
-            }
-        };
-
-        turnCorrectionPIDController = new PIDController(kPTurn, kITurn, kDTurn, kF, turnCorrectionSource, turnCorrectionOutput)
-        {
-            @Override
-            public double calculateFeedForward()
-            {
-                // Calculates the feedforward by using the voltages put into the motors
-                return Robot.drive.getAverageSpeed() * this.getF();
-            }
-        };
+        // Sets up the PID controllers
+        drivePIDController = new PIDController(kPDrive, kIDrive, kDDrive, driveSource, driveOutput);
+        turnCorrectionPIDController = new PIDController(kPTurn, kITurn, kDTurn, turnCorrectionSource, turnCorrectionOutput);
     }
 }

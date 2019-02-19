@@ -28,12 +28,12 @@ public class Drive extends Subsystem
   Encoder leftEncoder, rightEncoder;
   ADXRS450_Gyro gyro;
 
-  public double inchesToEncoderTurns = 0;
+  public double inchesToEncoderTurns = 20.8;
 
   public Drive()
   {    
     // Encoder objects
-    leftEncoder = new Encoder(RobotMap.leftEncoderA, RobotMap.leftEncoderB);
+    //leftEncoder = new Encoder(RobotMap.leftEncoderA, RobotMap.leftEncoderB);
     rightEncoder = new Encoder(RobotMap.rightEncoderA, RobotMap.rightEncoderB);
 
     // Motor controller objects
@@ -49,7 +49,7 @@ public class Drive extends Subsystem
   public void driveRobot(double sideVal, double forwardVal, double rotateVal)
   {
     // Build messed up the motor ports
-    drive.driveCartesian(-sideVal, forwardVal, rotateVal);
+    drive.driveCartesian(sideVal, -forwardVal, rotateVal);
   }
 
   // If you need comments for this I'm sorry
@@ -60,14 +60,16 @@ public class Drive extends Subsystem
 
   public double getAverageSpeed()
   {
-    return (Math.abs(frontLeftMotor.get()) + Math.abs(frontRightMotor.get()) + Math.abs(backLeftMotor.get()) + Math.abs(backLeftMotor.get())) / 4;
+    return Math.abs(rightEncoder.get());
+    //return (Math.abs(frontLeftMotor.get()) + Math.abs(frontRightMotor.get()) + Math.abs(backLeftMotor.get()) + Math.abs(backLeftMotor.get())) / 4;
   }
 
   public double getAverageEncoderValue()
   {
-    SmartDashboard.putNumber("Encoder Left: ", leftEncoder.getDistance());
-    SmartDashboard.putNumber("Encoder Right: ", rightEncoder.getDistance());
-    return (Math.abs(leftEncoder.get()) + Math.abs(rightEncoder.get())) / 2;
+    //SmartDashboard.putNumber("Encoder Left: ", leftEncoder.getDistance());
+    SmartDashboard.putNumber("Encoder Right: ", rightEncoder.get());
+    return rightEncoder.get();
+    //return (Math.abs(leftEncoder.get()) + Math.abs(rightEncoder.get())) / 2;
   }
 
   public double getGyro()
@@ -77,7 +79,7 @@ public class Drive extends Subsystem
 
   public void resetEncoders()
   {
-    leftEncoder.reset();
+    //leftEncoder.reset();
     rightEncoder.reset();
   }
 

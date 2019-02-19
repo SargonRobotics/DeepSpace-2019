@@ -31,34 +31,37 @@ public class CenterToHatch extends Command
   {
     centerOffest = Robot.vision.getCenterOffset();
     Robot.drivePID.drivePIDController.setAbsoluteTolerance(4);
-    Robot.drivePID.turnCorrectionPIDController.setAbsoluteTolerance(2);
     Robot.drivePID.drivePIDController.setSetpoint(centerOffest * Robot.drive.inchesToEncoderTurns);
-    Robot.drivePID.turnCorrectionPIDController.setSetpoint(0);
-    Robot.drivePID.drivePIDController.enable();
     Robot.drivePID.drivePIDController.enable();
     Robot.drive.resetEncoders();
-    Robot.drive.resetGyro();
+
+    System.out.println(Robot.drivePID.drivePIDController.getSetpoint());
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute()
   {
+    //TODO: This is broken, figure out what's wrong and fix it
+
     // This bit is a little more complex than we had before, but it's doing the same thing
     // When we capture a new position on a frame, we set a new setpoint
     // But here, we account for the time it took to process our frame, so that way we can be more precice in our control
 
     // If the captured frame has a different center position than previously captured, change the set point
-    if(Robot.drivePID.drivePIDController.getSetpoint() != Robot.vision.getCenterOffset())
+    if(Robot.drivePID.drivePIDController.getSetpoint() != (Robot.vision.getCenterOffset() * Robot.drive.inchesToEncoderTurns))
     {
       // Gets the index based off the delay of processing the frame
       double totalDelay = Robot.vision.getFrameDelay() + latencyDelay;
 
+      // This is the broken part
       // Gets the index by dividing the delay by the scheduler time and adding previously known value
-      int posIndex = (int) Math.floor(totalDelay / RobotMap.delayTime);
+      int posIndex = (int)Math.round(totalDelay / RobotMap.delayTime);
+
+      //System.out.println(totalDelay + ", " + posIndex);
 
       // Sets new setpoint for PID controller using the known position at the time we captured the frame
-      Robot.drivePID.drivePIDController.setSetpoint(posArray.get(posIndex) + Robot.drivePID.drivePIDController.getError());
+      Robot.drivePID.drivePIDController.setSetpoint((posArray.get(posIndex) + Robot.drivePID.drivePIDController.getError()) * Robot.drive.inchesToEncoderTurns);
     }
 
     // Adds our current position to the array
@@ -77,7 +80,6 @@ public class CenterToHatch extends Command
   protected void end()
   {
     Robot.drivePID.drivePIDController.disable();
-    Robot.drivePID.turnCorrectionPIDController.disable();
   }
 
   // Called when another command which requires one or more of the same
