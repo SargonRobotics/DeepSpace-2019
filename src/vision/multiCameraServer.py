@@ -48,6 +48,9 @@ configFile = "/boot/frc.json"
 
 # Most of this is straight from the example code provided by first
 
+# Name of the camera we want to use for processing
+processingCamName = "rPi Camera 0"
+
 class CameraConfig: pass
 
 # Empty object for variables we fill in later
@@ -193,19 +196,15 @@ if __name__ == "__main__":
     processingCamJson = None
 
     if cameras is not None:
-        # This sets the resolution of the image processing camera
-        # NOTE: Without this, the visionDetect code will throw errors
-        # this was made intentionally so that it doesn't return false values
-        # TODO: Fix this cause it broke
-        '''for camera in cameras:
-            cameraJson = json.loads(camera.getConfigJson())
-            print(cameraJson["properties"][-1]["value"])
-            if camera["properties"]["processing"] == 1:
-                processCam = camera
-                visionDetect.setCameraResolution(camera["width"], camera["height"])'''
-        processingCam = cameras[0]
-        processingCamJson = json.loads(processingCam.getConfigJson())
-        visionDetect.setCameraResolution(processingCamJson["width"], processingCamJson["height"])
+        for camera in cameras:
+            # Compares the names of all the cameras to the name that we want for the processing camera
+            if camera.getName() == processingCamName:
+                processingCam = camera
+                # Gets camera json config
+                processingCamJson = json.loads(processingCam.getConfigJson())
+                # This sets the resolution of the image processing camera
+                # this was made intentionally so that it doesn't return false values
+                visionDetect.setCameraResolution(processingCamJson["width"], processingCamJson["height"])
 
     # Starts network tables to send values into tohe roboRIO
     NetworkTables.initialize(server="10.23.35.2")
@@ -244,18 +243,9 @@ if __name__ == "__main__":
             # Gets time it took to process image
             timeToProcessImage = time.time() - startTime
 
-            if distanceToTape is not None:
-                # This puts the distance value on the table with they key "distance"
-                table.putNumber('distance', distanceToTape)
-            else:
-                # If we don't see anything, we put -1 so the code knows that we don't see anything
-                table.putNumber('distance', -1)
-
-            if centerOffset is not None:
-                table.putNumber('xOffset', centerOffset)
-            else:
-                # Since the center offset can actually equal -1, se put 0 so that it thinks we're on target
-                table.putNumber('xOffset', 0)
+            # This puts the distance value on the table with they key "distance" and "xOffset"
+            table.putNumber('distance', distanceToTape)
+            table.putNumber('xOffset', centerOffset)
 
             # Puts time it took to capture and process the image so we can account for that in our PID control
             table.putNumber('delay', timeToProcessImage + timeout)

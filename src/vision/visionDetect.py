@@ -5,7 +5,7 @@ import math
 # Parameters for filtering out tape contours
 # TODO: Move parameters to a seperate file, maybe import them from the robot?
 tapeAngle = 15
-angleError = 8
+angleError = 15
 cameraViewAngle = 29.4
 
 # These are all set to null so that if we try to run vision processing without setting the resolution
@@ -183,6 +183,9 @@ def getLowerAndUpperPoints(contours):
 # and find the distance
 def calculateDistanceFromCamera(upperPoints):
     # Checks if it sees more than 2 tape objects
+    if len(upperPoints) > 2:
+        print("YOU GOOFED!") # TODO: Have this output an error into the drive console
+
     if len(upperPoints) >= 2:
         pixelDistance = distance(upperPoints[0], upperPoints[1]) # Gets distance from two most inner points of the tape
         inchPixelRatio = 8 / pixelDistance # 8 inches is the real distance between these two points
@@ -190,6 +193,9 @@ def calculateDistanceFromCamera(upperPoints):
         # Trig time, gets total back view in inches, divides it by two and finds distance using trig magic
         camViewDistance = camWidth * inchPixelRatio
         return ((camViewDistance / 2) / (math.tan(math.radians(cameraViewAngle)))) # Note: math.tan() uses radians
+    else:
+        # If we don't see anything, we put -1 so the code knows that we don't see anything
+        return -1
 
 # This one is pretty easy, it gets the amount of pixels the camera needs to move to be perfectly centered
 def getCenterOffset(upperPoints):
@@ -197,6 +203,9 @@ def getCenterOffset(upperPoints):
         centerBetweenTape = (max(upperPoints[0][0], upperPoints[1][0]) - min(upperPoints[0][0], upperPoints[1][0])) / 2
         centerValue = centerBetweenTape + np.minimum(upperPoints[0][0], upperPoints[1][0])
         return centerValue - centerSetPosition
+    else:
+        # Since the center offset can actually equal -1, se put 0 so that it thinks we're on target
+        return 0
 
 # This draws out the contours it sees along with the hsv filtering, this is purely for debug, no reason to use this during comp
 def drawBoxes(frame, contours):
