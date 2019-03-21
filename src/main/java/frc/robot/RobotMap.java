@@ -20,6 +20,9 @@ public class RobotMap
 
    // Button ports
    public static final int cargoButton = 1, grabButton = 3, extendButton = 4;
+
+   // Button ports for codrive
+   public static final int coCargoButton = 3, coGrabButton = 4, coExtendButton = 1;
    
    // Limit switch ports
    public static final int cargoLimit = 0;

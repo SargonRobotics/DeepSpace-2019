@@ -19,25 +19,39 @@ import frc.robot.commands.RunCargo;
  */
 public class OI
 {
-  Joystick joystick;
+  Joystick driverJoystick, coJoystick;
   JoystickButton cargoButton, grabButton, extendButton;
+  JoystickButton coCargoButton, coGrabButton, coExtendButton;
 
   public OI()
   {
-    //configured new button, added button to activate cargo motors
-    joystick = new Joystick(0);
-    grabButton = new JoystickButton(joystick, RobotMap.grabButton);
-    extendButton = new JoystickButton(joystick, RobotMap.extendButton);
-    cargoButton = new JoystickButton(joystick, RobotMap.cargoButton);
-    
+    // Configured new button, added button to activate cargo motors
+    // These should be constants but I don't honestly give enough of a fuck so leave me alone
+    driverJoystick = new Joystick(0);
+    coJoystick = new Joystick(1);
+
+    grabButton = new JoystickButton(driverJoystick, RobotMap.grabButton);
+    extendButton = new JoystickButton(driverJoystick, RobotMap.extendButton);
+    cargoButton = new JoystickButton(driverJoystick, RobotMap.cargoButton);
+
+    coGrabButton = new JoystickButton(coJoystick, RobotMap.coGrabButton);
+    coExtendButton = new JoystickButton(coJoystick, RobotMap.coExtendButton);
+    coCargoButton = new JoystickButton(coJoystick, RobotMap.coCargoButton);
+
     grabButton.whenPressed(new GrabHatchCover());
     extendButton.whenPressed(new ExtendHatchCover());
     cargoButton.whileHeld(new RunCargo());
+
+    // Will this work?
+    // Please help me
+    coGrabButton.whenPressed(new GrabHatchCover());
+    coExtendButton.whenPressed(new ExtendHatchCover());
+    coCargoButton.whenPressed(new RunCargo());
   }
 
   public double getAxis(int port)
   {
-    return deadzone(joystick.getRawAxis(port));
+    return deadzone(driverJoystick.getRawAxis(port));
   }
 
   // Deadzone method for bad controller joysticks
