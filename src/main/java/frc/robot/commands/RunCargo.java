@@ -7,7 +7,6 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
@@ -32,14 +31,13 @@ public class RunCargo extends Command
   protected void execute() 
   {
     Robot.cargo.startCargoMotors();
-    currentLimitSwitchValue = Robot.cargo.getLimitSwitch();
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() 
   {
-    return (!initialLimitSwitchValue && currentLimitSwitchValue) ? true : false;
+    return false;
   }
 
   // Called once after isFinished returns true

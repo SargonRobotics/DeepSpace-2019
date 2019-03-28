@@ -37,7 +37,7 @@ public class Drive extends Subsystem
   public void driveRobot(double sideVal, double forwardVal, double rotateVal)
   {
     // Build messed up the motor ports
-    drive.driveCartesian(-sideVal, forwardVal, rotateVal);
+    drive.driveCartesian(sideVal, -forwardVal, rotateVal);
   }
 
   // If you need comments for this I'm sorry

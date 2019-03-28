@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import frc.robot.commands.ExtendHatchCover;
 import frc.robot.commands.GrabHatchCover;
+import frc.robot.commands.ReverseCargo;
 import frc.robot.commands.RunCargo;
 
 /**
@@ -20,7 +21,7 @@ import frc.robot.commands.RunCargo;
 public class OI
 {
   Joystick driverJoystick, coJoystick;
-  JoystickButton cargoButton, grabButton, extendButton;
+  JoystickButton cargoButton, grabButton, extendButton, reverseCargoButton;
   JoystickButton coCargoButton, coGrabButton, coExtendButton;
 
   public OI()
@@ -33,6 +34,7 @@ public class OI
     grabButton = new JoystickButton(driverJoystick, RobotMap.grabButton);
     extendButton = new JoystickButton(driverJoystick, RobotMap.extendButton);
     cargoButton = new JoystickButton(driverJoystick, RobotMap.cargoButton);
+    reverseCargoButton = new JoystickButton(driverJoystick, RobotMap.reverseCargoButton);
 
     coGrabButton = new JoystickButton(coJoystick, RobotMap.coGrabButton);
     coExtendButton = new JoystickButton(coJoystick, RobotMap.coExtendButton);
@@ -41,7 +43,9 @@ public class OI
     grabButton.whenPressed(new GrabHatchCover());
     extendButton.whenPressed(new ExtendHatchCover());
     cargoButton.whileHeld(new RunCargo());
+    reverseCargoButton.whileHeld(new ReverseCargo());
 
+    
     // Will this work?
     // Please help me
     coGrabButton.whenPressed(new GrabHatchCover());

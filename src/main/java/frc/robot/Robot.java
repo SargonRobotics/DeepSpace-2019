@@ -117,6 +117,14 @@ public class Robot extends TimedRobot
   @Override
   public void autonomousPeriodic()
   {
+    // Get values from joystick
+    double forward = oi.getAxis(RobotMap.yAxis);
+    double strafe = oi.getAxis(RobotMap.xAxis);
+    double rotate = oi.getAxis(RobotMap.zAxis);
+
+    // Drive robot (duh)
+    drive.driveRobot(strafe, forward, rotate);
+    
     Scheduler.getInstance().run();
   }
 

@@ -19,7 +19,7 @@ public class RobotMap
   public static final double deadzone = 0.15;
 
    // Button ports
-   public static final int cargoButton = 1, grabButton = 3, extendButton = 4;
+   public static final int cargoButton = 1, grabButton = 3, extendButton = 4, reverseCargoButton = 2;
 
    // Button ports for codrive
    public static final int coCargoButton = 3, coGrabButton = 4, coExtendButton = 1;

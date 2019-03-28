@@ -14,8 +14,6 @@ public class GrabHatchCover extends Command
 {
   public GrabHatchCover()
   {
-    // Use requires() here to declare subsystem dependencies
-    // eg. requires(chassis);
     requires(Robot.hatch);
   }
 

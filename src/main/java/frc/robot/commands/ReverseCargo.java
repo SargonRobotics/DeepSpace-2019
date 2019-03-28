@@ -10,39 +10,39 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
-public class ExtendHatchCover extends Command
+public class ReverseCargo extends Command
 {
-  public ExtendHatchCover()
+  public ReverseCargo()
   {
-    requires(Robot.hatch);
+    requires(Robot.cargo);
   }
 
   // Called just before this Command runs the first time
   @Override
-  protected void initialize() 
+  protected void initialize()
   {
-    Robot.hatch.toggleExtender();
+
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute()
   {
-
+    Robot.cargo.reverseCargoMotors();
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished()
   {
-    return true;
+    return false;
   }
 
   // Called once after isFinished returns true
   @Override
   protected void end()
   {
-    
+    Robot.cargo.stopCargoMotors();
   }
 
   // Called when another command which requires one or more of the same
@@ -50,6 +50,6 @@ public class ExtendHatchCover extends Command
   @Override
   protected void interrupted()
   {
-    
+    end();
   }
 }
